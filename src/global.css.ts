@@ -41,6 +41,7 @@ export const vars = createThemeContract({
   themeStyle: 'light' as 'light' | 'dark' | 'black',
   color: {
     background: null,
+    controls: null,
     surface: null,
     canvasArea: null,
     canvas: null,
@@ -124,7 +125,8 @@ const shared = {
 export const lightTheme = createTheme(vars, {
   themeStyle: 'light',
   color: {
-    background: '#ffffff',
+    background: '#fdfdfd',
+    controls: '#fafafa',
     surface: '#f0f0f0',
     canvasArea: '#f8f8f8',
     canvas: '#ffffff',
@@ -154,8 +156,9 @@ export const lightTheme = createTheme(vars, {
 });
 
 const darkThemeColorBase = {
-  background: '#252525',
-  surface: '#353535',
+  background: '#202020',
+  controls: '#272727',
+  surface: '#303030',
   canvasArea: '#1A1A1A',
   canvas: '#ffffff',
   canvasBorder: '#80808080',
@@ -202,8 +205,9 @@ export const darkThemeGYFlip = createTheme(vars, {
 });
 
 const blackThemeColorBase = {
-  background: '#101010',
-  surface: '#2A2A2A',
+  background: '#141414',
+  controls: '#181818',
+  surface: '#252525',
   canvasArea: '#000000',
   canvas: '#ffffff',
   canvasBorder: '#80808080',
