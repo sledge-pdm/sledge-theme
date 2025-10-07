@@ -1,5 +1,5 @@
 import { globalStyle } from '@vanilla-extract/css';
-import { vars } from './global.css';
+import { vars } from './ve_global.css';
 
 globalStyle('html, body', {
   height: '100vh',

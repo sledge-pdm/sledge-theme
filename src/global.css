@@ -1,0 +1,171 @@
+/* CSS Custom Properties for shared theme tokens */
+:root {
+  /* Sizes */
+  --size-bottom-info: 20px;
+  --size-dialog-radius: 6px;
+  --size-button-radius: 2px;
+
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 24px;
+
+  /* Text sizes */
+  --text-xs: 6px;
+  --text-sm: 8px;
+  --text-md: 10px;
+  --text-lg: 12px;
+  --text-xl: 16px;
+
+  /* Font families */
+  --font-body: 'ZFB08', 'k12x8', monospace;
+}
+
+/* Global base styles using CSS custom properties */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  background-color: var(--color-background);
+  color: var(--color-on-background);
+  font-family: var(--font-body);
+}
+
+div {
+  box-sizing: border-box;
+}
+
+button,
+p,
+a,
+input,
+label,
+span {
+  font-family: var(--font-body);
+  color: var(--color-on-background);
+  text-rendering: geometricPrecision;
+}
+
+a:hover {
+  color: var(--color-accent);
+}
+
+button {
+  background: var(--color-button-bg);
+  border: 1px solid var(--color-button-border);
+  border-radius: var(--size-button-radius);
+  cursor: pointer;
+  font-size: 8px;
+  height: fit-content;
+  padding: 2px 6px;
+  pointer-events: all;
+  overflow: visible;
+  width: fit-content;
+}
+
+button:disabled {
+  color: var(--color-muted);
+  border-color: var(--color-muted);
+  pointer-events: none;
+}
+
+button:hover {
+  background: var(--color-button-hover);
+}
+
+button:active {
+  background: var(--color-button-active);
+  transform: translateY(1px);
+}
+
+/* Reset styles */
+html,
+body {
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+main {
+  width: 100vw;
+  user-select: none;
+  -webkit-user-select: none;
+  background-color: var(--color-background);
+}
+
+p,
+a,
+label {
+  font-size: 0.5rem;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+a {
+  cursor: pointer;
+}
+
+input {
+  border: none;
+  outline: none;
+  background: none;
+  border-bottom: 1px solid var(--color-on-background);
+  font-size: 0.5rem;
+  user-select: initial;
+  -webkit-user-select: initial;
+  cursor: text;
+  pointer-events: auto;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+/* Utility classes */
+.accented-button {
+  width: fit-content;
+  border: 1px solid var(--color-accent);
+  background: var(--color-button-bg);
+  color: var(--color-accent);
+  pointer-events: all;
+}
+
+.accented-button:hover {
+  color: #ffffff;
+  background: var(--color-accent);
+}
+
+.accented-button:disabled {
+  color: var(--color-muted);
+  border: 1px solid var(--color-muted);
+  pointer-events: none;
+}
+
+.page-root {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+  user-select: none;
+  background-color: var(--color-background);
+}
+
+.sledge-logo {
+  bottom: 2px;
+  position: absolute;
+  right: 2px;
+}

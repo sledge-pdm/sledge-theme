@@ -1,0 +1,63 @@
+/**
+
+export const lightTheme = createTheme(vars, {
+  themeStyle: 'light',
+  color: {
+    background: '#fdfdfd',
+    controls: '#fafafa',
+    surface: '#f0f0f0',
+    canvasArea: '#f8f8f8',
+    canvas: '#ffffff',
+    canvasBorder: '#03030380',
+    onBackground: '#202020',
+    selectionBorder: '#808080',
+    selectionBorderFill: '#00000010',
+    border: '#aaaaaa',
+    borderSecondary: '#dddddd',
+    accent: '#0080ff',
+    active: '#ff00ff',
+    enabled: '#00dd00',
+    muted: 'rgba(0,0,0,0.35)',
+    error: '#ff0000',
+    warn: '#ffcc00',
+    overlay: 'rgba(0, 0, 0, 0.5)',
+    button: {
+      bg: '#ffffff',
+      hover: '#e5e5e5',
+      active: '#e0e0e0',
+      text: '#202020DE',
+      textOnAccent: '#ffffff',
+      border: '#202020DE',
+    },
+  },
+  ...shared,
+});
+*/
+
+/* Light theme color variables */
+:root {
+  --color-background: #fdfdfd;
+  --color-controls: #fafafa;
+  --color-surface: #f0f0f0;
+  --color-canvas-area: #f8f8f8;
+  --color-canvas: #ffffff;
+  --color-canvas-border: rgba(3, 3, 3, 0.22);
+  --color-on-background: #202020;
+  --color-selection-border: #808080;
+  --color-selection-border-fill: rgba(0, 0, 0, 0.06);
+  --color-border: #aaaaaa;
+  --color-border-secondary: #dddddd;
+  --color-accent: #0080ff;
+  --color-active: #ff00ff;
+  --color-enabled: #00dd00;
+  --color-muted: rgba(0, 0, 0, 0.35);
+  --color-error: #ff0000;
+  --color-warn: #ffcc00;
+  --color-overlay: rgba(0, 0, 0, 0.5);
+  --color-button-bg: #ffffff;
+  --color-button-hover: #e5e5e5;
+  --color-button-active: #e0e0e0;
+  --color-button-text: rgba(32, 32, 32, 0.87);
+  --color-button-text-on-accent: #ffffff;
+  --color-button-border: rgba(32, 32, 32, 0.87);
+}
