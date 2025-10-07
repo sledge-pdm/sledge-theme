@@ -1,4 +1,137 @@
-/* CSS Custom Properties for shared theme tokens */
+/* Font face definitions in CSS format */
+@font-face {
+  font-family: 'ZFB03';
+  src: url('/fonts/04B/04B_03__.ttf');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ZFB03B';
+  src: url('/fonts/04B/04B_03B_.ttf');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ZFB08';
+  src: url('/fonts/04B/04B_08__.ttf');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ZFB09';
+  src: url('/fonts/04B/04B_09__.ttf');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ZFB11';
+  src: url('/fonts/04B/04B_11__.ttf');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ZFB19';
+  src: url('/fonts/04B/04B_19__.ttf');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ZFB20';
+  src: url('/fonts/04B/04B_20__.ttf');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ZFB21';
+  src: url('/fonts/04B/04B_21__.ttf');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ZFB24';
+  src: url('/fonts/04B/04B_24__.ttf');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ZFB25';
+  src: url('/fonts/04B/04B_25__.ttf');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ZFB30';
+  src: url('/fonts/04B/04B_30__.ttf');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ZFB31';
+  src: url('/fonts/04B/04B_31__.ttf');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Terminus';
+  src: url('/fonts/terminus/TerminusTTF-4.49.3.ttf');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'k8x12';
+  src: url('/fonts/k8x12/k8x12.ttf');
+  font-display: swap;
+  size-adjust: 75%;
+}
+
+@font-face {
+  font-family: 'k8x12L';
+  src: url('/fonts/k8x12/k8x12L.ttf');
+  font-display: swap;
+  size-adjust: 75%;
+}
+
+@font-face {
+  font-family: 'k8x12S';
+  src: url('/fonts/k8x12/k8x12S.ttf');
+  font-display: swap;
+  size-adjust: 75%;
+}
+
+@font-face {
+  font-family: 'k12x8';
+  src: url('/fonts/k12x8/k12x8.ttf');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PM10';
+  src: url('/fonts/PixelMPlus/PixelMplus10-Regular.ttf');
+  font-weight: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PM10';
+  src: url('/fonts/PixelMPlus/PixelMplus10-Bold.ttf');
+  font-weight: bold;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PM12';
+  src: url('/fonts/PixelMPlus/PixelMplus12-Regular.ttf');
+  font-weight: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PM12';
+  src: url('/fonts/PixelMPlus/PixelMplus12-Bold.ttf');
+  font-weight: bold;
+  font-display: swap;
+}
+
 :root {
   /* Sizes */
   --size-bottom-info: 20px;
@@ -21,6 +154,30 @@
 
   /* Font families */
   --font-body: 'ZFB08', 'k12x8', monospace;
+
+  /* Z indexes */
+  --zindex-layer-preview: 100;
+  --zindex-zoom-pan-wrapper: 200;
+  --zindex-webgl-canvas: 300;
+  --zindex-interact-canvas: 500;
+  --zindex-canvas-overlay: 700;
+  --zindex-image-pool: 800;
+  --zindex-image-poolImage: 830;
+  --zindex-image-poolMenu: 850;
+  --zindex-image-poolControl: 880;
+  --zindex-selection-menu: 900;
+  --zindex-canvas-resize-frame: 950;
+  --zindex-canvas-error-overlay: 999;
+  --zindex-title-bar: 1000;
+  --zindex-side-section: 1000;
+  --zindex-side-sectionFade: 1050;
+  --zindex-bottom-info: 1100;
+  --zindex-dialog: 2000;
+  --zindex-dropdown-menu: 2500;
+  --zindex-context-menu: 3000;
+  --zindex-modal-dialog: 4000;
+  --zindex-tooltip: 5000;
+  --zindex-debug-menu: 7000;
 }
 
 /* Global base styles using CSS custom properties */

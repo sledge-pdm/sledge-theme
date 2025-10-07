@@ -1,4 +1,4 @@
-import { createTheme, createThemeContract, fontFace, globalStyle, style } from '@vanilla-extract/css';
+import { createTheme, createThemeContract, fontFace, style } from '@vanilla-extract/css';
 
 /**
  * ---------------------------------------------------------------------------
@@ -239,66 +239,6 @@ export const blackTheme = createTheme(vars, {
   ...shared,
 });
 
-/**
- * ---------------------------------------------------------------------------
- * 4. Global styles – vars を直接参照
- * ---------------------------------------------------------------------------
- */
-globalStyle('html, body', {
-  height: '100%',
-  margin: 0,
-  backgroundColor: vars.color.background,
-  color: vars.color.onBackground,
-  fontFamily: vars.font.body,
-});
-
-globalStyle('div', {
-  boxSizing: 'border-box',
-});
-
-globalStyle('button, p, a, input, label, span', {
-  fontFamily: vars.font.body,
-  color: vars.color.onBackground,
-  textRendering: 'geometricPrecision',
-});
-
-globalStyle('a:hover', {
-  color: vars.color.accent,
-});
-
-globalStyle('button', {
-  background: vars.color.button.bg,
-  border: `1px solid ${vars.color.button.border}`,
-  borderRadius: vars.size.buttonRadius,
-  cursor: 'pointer',
-  fontSize: '8px',
-  height: 'fit-content',
-  padding: '2px 6px',
-  pointerEvents: 'all',
-  overflow: 'visible',
-  width: 'fit-content',
-});
-
-globalStyle('button:disabled', {
-  color: vars.color.muted,
-  borderColor: vars.color.muted,
-  pointerEvents: 'none',
-});
-
-globalStyle('button:hover', {
-  background: vars.color.button.hover,
-});
-
-globalStyle('button:active', {
-  background: vars.color.button.active,
-  transform: 'translateY(1px)',
-});
-
-/**
- * ---------------------------------------------------------------------------
- * 5. Utility classes / component-level styles
- * ---------------------------------------------------------------------------
- */
 export const accentedButton = style({
   width: 'fit-content',
   border: `1px solid ${vars.color.accent}`,
