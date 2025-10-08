@@ -5,62 +5,62 @@
 
 // Colors
 export const color = {
-  background: '--color-background',
-  controls: '--color-controls',
-  surface: '--color-surface',
-  canvasArea: '--color-canvas-area',
-  canvas: '--color-canvas',
-  canvasBorder: '--color-canvas-border',
-  onBackground: '--color-on-background',
-  selectionBorder: '--color-selection-border',
-  selectionBorderFill: '--color-selection-border-fill',
-  border: '--color-border',
-  borderSecondary: '--color-border-secondary',
-  accent: '--color-accent',
-  active: '--color-active',
-  enabled: '--color-enabled',
-  muted: '--color-muted',
-  error: '--color-error',
-  warn: '--color-warn',
-  overlay: '--color-overlay',
+  background: 'var(--color-background)',
+  controls: 'var(--color-controls)',
+  surface: 'var(--color-surface)',
+  canvasArea: 'var(--color-canvas-area)',
+  canvas: 'var(--color-canvas)',
+  canvasBorder: 'var(--color-canvas-border)',
+  onBackground: 'var(--color-on-background)',
+  selectionBorder: 'var(--color-selection-border)',
+  selectionBorderFill: 'var(--color-selection-border-fill)',
+  border: 'var(--color-border)',
+  borderSecondary: 'var(--color-border-secondary)',
+  accent: 'var(--color-accent)',
+  active: 'var(--color-active)',
+  enabled: 'var(--color-enabled)',
+  muted: 'var(--color-muted)',
+  error: 'var(--color-error)',
+  warn: 'var(--color-warn)',
+  overlay: 'var(--color-overlay)',
   button: {
-    bg: '--color-button-bg',
-    hover: '--color-button-hover',
-    active: '--color-button-active',
-    text: '--color-button-text',
-    textOnAccent: '--color-button-text-on-accent',
-    border: '--color-button-border',
+    bg: 'var(--color-button-bg)',
+    hover: 'var(--color-button-hover)',
+    active: 'var(--color-button-active)',
+    text: 'var(--color-button-text)',
+    textOnAccent: 'var(--color-button-text-on-accent)',
+    border: 'var(--color-button-border)',
   },
 };
 
 // Sizes
 export const size = {
-  bottomInfo: '--size-bottom-info',
-  dialogRadius: '--size-dialog-radius',
-  buttonRadius: '--size-button-radius',
+  bottomInfo: 'var(--size-bottom-info)',
+  dialogRadius: 'var(--size-dialog-radius)',
+  buttonRadius: 'var(--size-button-radius)',
 };
 
 // Spacing
 export const spacing = {
-  xs: '--spacing-xs',
-  sm: '--spacing-sm',
-  md: '--spacing-md',
-  lg: '--spacing-lg',
-  xl: '--spacing-xl',
+  xs: 'var(--spacing-xs)',
+  sm: 'var(--spacing-sm)',
+  md: 'var(--spacing-md)',
+  lg: 'var(--spacing-lg)',
+  xl: 'var(--spacing-xl)',
 };
 
 // Text sizes
 export const text = {
-  xs: '--text-xs',
-  sm: '--text-sm',
-  md: '--text-md',
-  lg: '--text-lg',
-  xl: '--text-xl',
+  xs: 'var(--text-xs)',
+  sm: 'var(--text-sm)',
+  md: 'var(--text-md)',
+  lg: 'var(--text-lg)',
+  xl: 'var(--text-xl)',
 };
 
 // Fonts
 export const font = {
-  body: '--font-body',
+  body: 'var(--font-body)',
 };
 
 /**
