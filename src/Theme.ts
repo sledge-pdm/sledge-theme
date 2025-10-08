@@ -1,5 +1,4 @@
 import { getCSSProperty, setCSSProperty } from './vars';
-import { blackTheme, darkTheme, darkThemeGYFlip, lightTheme } from './ve_global.css';
 
 export type Theme = 'os' | 'light' | 'dark' | 'dark-gy-flip' | 'black';
 export type UserTheme = { name: string; css: string };
@@ -228,20 +227,3 @@ export function watchOSTheme(callback?: (isDark: boolean) => void): () => void {
     mq.removeEventListener('change', handler);
   };
 }
-
-export const getTheme = (theme: Theme) => {
-  switch (theme) {
-    case 'os':
-      // OS設定を初期値に
-      const mq = window.matchMedia('(prefers-color-scheme: dark)');
-      return mq.matches ? darkTheme : lightTheme;
-    case 'light':
-      return lightTheme;
-    case 'dark':
-      return darkTheme;
-    case 'dark-gy-flip':
-      return darkThemeGYFlip;
-    case 'black':
-      return blackTheme;
-  }
-};
