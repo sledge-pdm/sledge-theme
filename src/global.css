@@ -170,7 +170,7 @@
   --zindex-canvas-error-overlay: 999;
   --zindex-title-bar: 1000;
   --zindex-side-section: 1000;
-  --zindex-side-sectionFade: 1050;
+  --zindex-side-section-fade: 1050;
   --zindex-bottom-info: 1100;
   --zindex-dialog: 2000;
   --zindex-dropdown-menu: 2500;
