@@ -10,7 +10,7 @@ export const themeOptions = [
   { label: 'dark', value: 'dark' },
   { label: 'dark-gy-flip', value: 'dark-gy-flip' },
   { label: 'black', value: 'black' },
-] as const;
+];
 
 // ビルトインテーマのCSS変数定義
 const builtinThemes = {
