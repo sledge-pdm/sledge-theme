@@ -162,9 +162,9 @@
   --zindex-interact-canvas: 500;
   --zindex-canvas-overlay: 700;
   --zindex-image-pool: 800;
-  --zindex-image-poolImage: 830;
-  --zindex-image-poolMenu: 850;
-  --zindex-image-poolControl: 880;
+  --zindex-image-pool-image: 830;
+  --zindex-image-pool-menu: 850;
+  --zindex-image-pool-control: 880;
   --zindex-selection-menu: 900;
   --zindex-canvas-resize-frame: 950;
   --zindex-canvas-error-overlay: 999;
