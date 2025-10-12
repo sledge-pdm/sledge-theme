@@ -41,9 +41,9 @@ const baseDark = {
 // ビルトインテーマのCSS変数定義
 const builtinThemes = {
   light: {
-    '--color-background': '#fdfdfd',
-    '--color-controls': '#f5f5f5',
-    '--color-surface': '#f2f2f2',
+    '--color-background': '#fefefe',
+    '--color-controls': '#fcfcfc',
+    '--color-surface': '#f7f7f7',
     '--color-canvas-area': '#f2f2f2',
     '--color-canvas': '#ffffff',
     '--color-canvas-border': 'rgba(3, 3, 3, 0.22)',
