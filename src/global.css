@@ -177,6 +177,7 @@
   --zindex-context-menu: 3000;
   --zindex-modal-dialog: 4000;
   --zindex-tooltip: 5000;
+  --zindex-floating-controller: 6000;
   --zindex-debug-menu: 7000;
 }
 
