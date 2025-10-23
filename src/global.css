@@ -206,7 +206,8 @@ p,
 a,
 input,
 label,
-span {
+span,
+textarea {
   font-family: var(--font-body);
   color: var(--color-on-background);
   text-rendering: geometricprecision;
