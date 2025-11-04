@@ -13,7 +13,7 @@ export const color = {
   canvasBorder: 'var(--color-canvas-border)',
   onBackground: 'var(--color-on-background)',
   selectionBorder: 'var(--color-selection-border)',
-  selectionBorderFill: 'var(--color-selection-border-fill)',
+  selectionFill: 'var(--color-selection-fill)',
   border: 'var(--color-border)',
   borderSecondary: 'var(--color-border-secondary)',
   accent: 'var(--color-accent)',
