@@ -12,6 +12,7 @@ export const color = {
   canvas: 'var(--color-canvas)',
   canvasBorder: 'var(--color-canvas-border)',
   onBackground: 'var(--color-on-background)',
+  onBackgroundSecondary: 'var(--color-on-background-secondary)',
   selectionBorder: 'var(--color-selection-border)',
   selectionFill: 'var(--color-selection-fill)',
   border: 'var(--color-border)',
