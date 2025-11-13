@@ -159,7 +159,7 @@
   --zindex-layer-preview: 100;
   --zindex-zoom-pan-wrapper: 200;
   --zindex-webgl-canvas: 300;
-  --zindex-interact-canvas: 500;
+  --zindex-interact-area: 500;
   --zindex-canvas-overlay: 700;
   --zindex-image-pool: 800;
   --zindex-image-pool-image: 830;
