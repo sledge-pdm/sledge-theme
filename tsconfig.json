@@ -8,6 +8,9 @@
     "noEmit": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "verbatimModuleSyntax": true
+    "verbatimModuleSyntax": true,
+    "paths": {
+      "@sledge/anvil": ["../anvil"]
+    }
   }
 }

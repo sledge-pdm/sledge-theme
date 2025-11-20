@@ -1,7 +1,41 @@
+import { RGBAToHex, colorMatch, hexToRGBA, hexWithSharpToRGBA, type RGBA } from '@sledge/anvil';
 import { getCSSProperty, setCSSProperty } from './vars';
 
 export type Theme = 'os' | 'light' | 'dark' | 'dark-gy-flip' | 'black';
-export type UserTheme = { name: string; css: string };
+
+const themeColorVars = [
+  '--color-background',
+  '--color-controls',
+  '--color-surface',
+  '--color-canvas-area',
+  '--color-canvas',
+  '--color-canvas-border',
+  '--color-on-background',
+  '--color-on-background-secondary',
+  '--color-selection-border',
+  '--color-selection-fill',
+  '--color-border',
+  '--color-border-secondary',
+  '--color-accent',
+  '--color-active',
+  '--color-enabled',
+  '--color-muted',
+  '--color-error',
+  '--color-warn',
+  '--color-overlay',
+  '--color-button-bg',
+  '--color-button-hover',
+  '--color-button-active',
+  '--color-button-text',
+  '--color-button-text-on-accent',
+  '--color-button-border',
+] as const;
+
+type ThemeColorVar = (typeof themeColorVars)[number];
+export type ThemeColors = Partial<Record<ThemeColorVar, RGBA>>;
+type BuiltinThemeColors = Record<ThemeColorVar, RGBA>;
+
+export type UserTheme = { name: string; colors: ThemeColors; css?: never } | { name: string; css: string; colors?: never };
 
 export const themeOptions = [
   { label: 'os theme', value: 'os' },
@@ -11,181 +45,203 @@ export const themeOptions = [
   { label: 'black', value: 'black' },
 ];
 
-const baseDark = {
-  '--color-background': '#202020',
-  '--color-controls': '#272727',
-  '--color-surface': '#303030',
-  '--color-canvas-area': '#141414',
-  '--color-canvas': '#ffffff',
-  '--color-canvas-border': 'rgba(128, 128, 128, 0.5)',
-  '--color-on-background': '#eeeeee',
-  '--color-on-background-secondary': '#eeeeee90',
-  '--color-selection-border': '#808080',
-  '--color-selection-fill': 'rgba(128, 128, 128, 0.20)',
-  '--color-border': '#505050',
-  '--color-border-secondary': '#404040',
-  '--color-accent': '#ffff00',
-  '--color-active': '#00ff00',
-  '--color-enabled': '#00ff00',
-  '--color-muted': 'rgba(255, 255, 255, 0.3)',
-  '--color-error': '#ff5f5f',
-  '--color-warn': '#fffb00',
-  '--color-overlay': 'rgba(255, 255, 255, 0.5)',
-  '--color-button-bg': '#222222',
-  '--color-button-hover': '#444444',
-  '--color-button-active': '#555555',
-  '--color-button-text': '#eeeeee',
-  '--color-button-text-on-accent': '#222222',
-  '--color-button-border': '#bbbbbb',
+const clampToByte = (value: number): number => Math.min(255, Math.max(0, Math.round(value)));
+
+const rgbaToCssValue = (color: RGBA): string => {
+  const [r, g, b, a = 255] = color;
+  const clamped: RGBA = [clampToByte(r), clampToByte(g), clampToByte(b), clampToByte(a)];
+  const includeAlpha = clamped[3] !== 255;
+  return RGBAToHex(clamped, { withSharp: true, excludeAlpha: !includeAlpha });
 };
 
-// ビルトインテーマのCSS変数定義
-const builtinThemes = {
+// Accepts #rrggbb, #rrggbbaa, rrggbb, rrggbbaa, rgb(), rgba()
+const cssValueToRGBA = (value: string): RGBA | null => {
+  const trimmed = value.trim();
+  if (!trimmed) return null;
+
+  if (trimmed.startsWith('#')) {
+    const hex = trimmed.slice(1);
+    if (hex.length === 6 || hex.length === 8) {
+      return hexWithSharpToRGBA(trimmed);
+    }
+    return null;
+  }
+
+  const hexMatch = trimmed.match(/^[0-9a-fA-F]{6,8}$/);
+  if (hexMatch) {
+    return hexToRGBA(trimmed);
+  }
+
+  const rgbaMatch = trimmed.match(/^rgba?\(\s*([0-9]+)\s*,\s*([0-9]+)\s*,\s*([0-9]+)\s*(?:,\s*([0-9]*\.?[0-9]+)\s*)?\)$/i);
+
+  if (rgbaMatch) {
+    const [, rRaw, gRaw, bRaw, aRaw] = rgbaMatch;
+    const r = clampToByte(Number(rRaw));
+    const g = clampToByte(Number(gRaw));
+    const b = clampToByte(Number(bRaw));
+    const a = aRaw === undefined ? 255 : clampToByte(Math.round(Number(aRaw) * 255));
+    return [r, g, b, a];
+  }
+
+  return null;
+};
+
+const baseDark: BuiltinThemeColors = {
+  '--color-background': [32, 32, 32, 255],
+  '--color-controls': [39, 39, 39, 255],
+  '--color-surface': [48, 48, 48, 255],
+  '--color-canvas-area': [20, 20, 20, 255],
+  '--color-canvas': [255, 255, 255, 255],
+  '--color-canvas-border': [128, 128, 128, 128],
+  '--color-on-background': [238, 238, 238, 255],
+  '--color-on-background-secondary': [238, 238, 238, 144],
+  '--color-selection-border': [128, 128, 128, 255],
+  '--color-selection-fill': [128, 128, 128, 51],
+  '--color-border': [80, 80, 80, 255],
+  '--color-border-secondary': [64, 64, 64, 255],
+  '--color-accent': [255, 255, 0, 255],
+  '--color-active': [0, 255, 0, 255],
+  '--color-enabled': [0, 255, 0, 255],
+  '--color-muted': [255, 255, 255, 77],
+  '--color-error': [255, 95, 95, 255],
+  '--color-warn': [255, 251, 0, 255],
+  '--color-overlay': [255, 255, 255, 128],
+  '--color-button-bg': [34, 34, 34, 255],
+  '--color-button-hover': [68, 68, 68, 255],
+  '--color-button-active': [85, 85, 85, 255],
+  '--color-button-text': [238, 238, 238, 255],
+  '--color-button-text-on-accent': [34, 34, 34, 255],
+  '--color-button-border': [187, 187, 187, 255],
+};
+
+const builtinThemes: Record<Exclude<Theme, 'os'>, BuiltinThemeColors> = {
   light: {
-    '--color-background': '#fefefe',
-    '--color-controls': '#fcfcfc',
-    '--color-surface': '#f0f0f0',
-    '--color-canvas-area': '#f2f2f2',
-    '--color-canvas': '#ffffff',
-    '--color-canvas-border': 'rgba(3, 3, 3, 0.22)',
-    '--color-on-background': '#343434',
-    '--color-on-background-secondary': '#34343490',
-    '--color-selection-border': '#808080',
-    '--color-selection-fill': 'rgba(128, 128, 128, 0.20)',
-    '--color-border': '#c0c0c0',
-    '--color-border-secondary': '#b0b0b0',
-    '--color-accent': '#0080ff',
-    '--color-active': '#ff00ff',
-    '--color-enabled': '#00dd00',
-    '--color-muted': 'rgba(0, 0, 0, 0.35)',
-    '--color-error': '#ff0000',
-    '--color-warn': '#ffcc00',
-    '--color-overlay': 'rgba(0, 0, 0, 0.5)',
-    '--color-button-bg': '#ffffff',
-    '--color-button-hover': '#e5e5e5',
-    '--color-button-active': '#e0e0e0',
-    '--color-button-text': 'rgba(32, 32, 32, 0.87)',
-    '--color-button-text-on-accent': '#ffffff',
-    '--color-button-border': 'rgba(32, 32, 32, 0.87)',
+    '--color-background': [254, 254, 254, 255],
+    '--color-controls': [252, 252, 252, 255],
+    '--color-surface': [240, 240, 240, 255],
+    '--color-canvas-area': [242, 242, 242, 255],
+    '--color-canvas': [255, 255, 255, 255],
+    '--color-canvas-border': [3, 3, 3, 56],
+    '--color-on-background': [52, 52, 52, 255],
+    '--color-on-background-secondary': [52, 52, 52, 144],
+    '--color-selection-border': [128, 128, 128, 255],
+    '--color-selection-fill': [128, 128, 128, 51],
+    '--color-border': [192, 192, 192, 255],
+    '--color-border-secondary': [176, 176, 176, 255],
+    '--color-accent': [0, 128, 255, 255],
+    '--color-active': [255, 0, 255, 255],
+    '--color-enabled': [0, 221, 0, 255],
+    '--color-muted': [0, 0, 0, 89],
+    '--color-error': [255, 0, 0, 255],
+    '--color-warn': [255, 204, 0, 255],
+    '--color-overlay': [0, 0, 0, 128],
+    '--color-button-bg': [255, 255, 255, 255],
+    '--color-button-hover': [229, 229, 229, 255],
+    '--color-button-active': [224, 224, 224, 255],
+    '--color-button-text': [32, 32, 32, 222],
+    '--color-button-text-on-accent': [255, 255, 255, 255],
+    '--color-button-border': [32, 32, 32, 222],
   },
   dark: baseDark,
   'dark-gy-flip': {
     ...baseDark,
-    '--color-accent': '#00ff00', // flipped
-    '--color-active': '#ffff00', // flipped
+    '--color-accent': [0, 255, 0, 255],
+    '--color-active': [255, 255, 0, 255],
   },
   black: {
-    '--color-background': '#101010',
-    '--color-controls': '#151515',
-    '--color-surface': '#202020',
-    '--color-canvas-area': '#000000',
-    '--color-canvas': '#ffffff',
-    '--color-canvas-border': 'rgba(128, 128, 128, 0.5)',
-    '--color-on-background': '#eeeeee',
-    '--color-on-background-secondary': '#eeeeee90',
-    '--color-selection-border': '#808080',
-    '--color-selection-fill': 'rgba(128, 128, 128, 0.20)',
-    '--color-border': '#505050',
-    '--color-border-secondary': '#393939',
-    '--color-accent': '#ff00ff',
-    '--color-active': '#ff00ff',
-    '--color-enabled': '#00ff00',
-    '--color-muted': 'rgba(255, 255, 255, 0.3)',
-    '--color-error': '#ff3030',
-    '--color-warn': '#fffb00',
-    '--color-overlay': 'rgba(255, 255, 255, 0.32)',
-    '--color-button-bg': '#222222',
-    '--color-button-hover': '#444444',
-    '--color-button-active': '#555555',
-    '--color-button-text': '#eeeeee',
-    '--color-button-text-on-accent': '#101010',
-    '--color-button-border': '#aaaaaa',
+    '--color-background': [16, 16, 16, 255],
+    '--color-controls': [21, 21, 21, 255],
+    '--color-surface': [32, 32, 32, 255],
+    '--color-canvas-area': [0, 0, 0, 255],
+    '--color-canvas': [255, 255, 255, 255],
+    '--color-canvas-border': [128, 128, 128, 128],
+    '--color-on-background': [238, 238, 238, 255],
+    '--color-on-background-secondary': [238, 238, 238, 144],
+    '--color-selection-border': [128, 128, 128, 255],
+    '--color-selection-fill': [128, 128, 128, 51],
+    '--color-border': [80, 80, 80, 255],
+    '--color-border-secondary': [57, 57, 57, 255],
+    '--color-accent': [255, 0, 255, 255],
+    '--color-active': [255, 0, 255, 255],
+    '--color-enabled': [0, 255, 0, 255],
+    '--color-muted': [255, 255, 255, 77],
+    '--color-error': [255, 48, 48, 255],
+    '--color-warn': [255, 251, 0, 255],
+    '--color-overlay': [255, 255, 255, 82],
+    '--color-button-bg': [34, 34, 34, 255],
+    '--color-button-hover': [68, 68, 68, 255],
+    '--color-button-active': [85, 85, 85, 255],
+    '--color-button-text': [238, 238, 238, 255],
+    '--color-button-text-on-accent': [16, 16, 16, 255],
+    '--color-button-border': [170, 170, 170, 255],
   },
 } as const;
 
-// ユーザーテーマ用のCSSStyleSheetを管理
 let userThemeStyleSheet: CSSStyleSheet | null = null;
 
-/**
- * ビルトインテーマを適用する
- * @param theme テーマ名
- */
+const setThemeColors = (colors: ThemeColors): void => {
+  const entries = Object.entries(colors) as [ThemeColorVar, RGBA | undefined][];
+  entries.forEach(([property, value]) => {
+    if (!value) return;
+    setCSSProperty(property, rgbaToCssValue(value));
+  });
+};
+
 export function applyBuiltinTheme(theme: Theme): void {
-  // ユーザーテーマがあれば削除
   if (userThemeStyleSheet) {
     removeUserThemeStyleSheet();
   }
 
-  let targetTheme: keyof typeof builtinThemes;
+  const targetTheme = theme === 'os' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme;
 
-  if (theme === 'os') {
-    // OS設定を確認
-    const mq = window.matchMedia('(prefers-color-scheme: dark)');
-    targetTheme = mq.matches ? 'dark' : 'light';
-  } else {
-    targetTheme = theme;
-  }
-
-  const themeVars = builtinThemes[targetTheme];
-
-  // CSS変数を一括で更新
-  Object.entries(themeVars).forEach(([property, value]) => {
-    setCSSProperty(property, value);
-  });
+  const themeVars = builtinThemes[targetTheme as Exclude<Theme, 'os'>];
+  setThemeColors(themeVars);
 }
 
-/**
- * ユーザー定義テーマを適用する
- * @param css テーマのCSS文字列
- */
-export function applyUserTheme(css: string): void {
-  // 既存のユーザーテーマシートを削除
+// Accepts the new RGBA map format or legacy CSS string.
+export function applyUserTheme(theme: ThemeColors | string): void {
   removeUserThemeStyleSheet();
 
-  // 新しいスタイルシートを作成
-  userThemeStyleSheet = new CSSStyleSheet();
-  userThemeStyleSheet.replaceSync(css);
+  if (typeof theme === 'string') {
+    userThemeStyleSheet = new CSSStyleSheet();
+    userThemeStyleSheet.replaceSync(theme);
+    document.adoptedStyleSheets = [...document.adoptedStyleSheets, userThemeStyleSheet];
+    return;
+  }
 
-  // adoptedStyleSheetsに追加
-  document.adoptedStyleSheets = [...document.adoptedStyleSheets, userThemeStyleSheet];
+  setThemeColors(theme);
 }
 
-/**
- * 統一されたテーマ適用API
- * @param theme ビルトインテーマ名またはユーザーテーマオブジェクト
- */
 export function applyTheme(theme: Theme | UserTheme): void {
   if (typeof theme === 'string') {
     applyBuiltinTheme(theme);
-  } else {
+    return;
+  }
+
+  if ('colors' in theme && theme.colors) {
+    applyUserTheme(theme.colors);
+  } else if ('css' in theme && theme.css) {
     applyUserTheme(theme.css);
   }
 }
 
-/**
- * 現在適用されているテーマの取得（ビルトインテーマのみ）
- */
 export function getCurrentBuiltinTheme(): Theme | null {
-  const background = getCSSProperty('--color-background');
-  const accent = getCSSProperty('--color-accent');
+  const background = cssValueToRGBA(getCSSProperty('--color-background'));
+  const accent = cssValueToRGBA(getCSSProperty('--color-accent'));
+  if (!background || !accent) return null;
 
-  // 背景色とアクセントカラーでテーマを判定
-  switch (background) {
-    case '#fdfdfd':
-      return 'light';
-    case '#202020':
-      // dark と dark-gy-flip を区別するためにaccentをチェック
-      return accent === '#00ff00' ? 'dark-gy-flip' : 'dark';
-    case '#141414':
-      return 'black';
-    default:
-      return null;
+  const entries = Object.entries(builtinThemes) as [Exclude<Theme, 'os'>, BuiltinThemeColors][];
+  for (const [themeName, colors] of entries) {
+    const expectedBackground = colors['--color-background'];
+    const expectedAccent = colors['--color-accent'];
+    if (colorMatch(background, expectedBackground) && colorMatch(accent, expectedAccent)) {
+      return themeName;
+    }
   }
+
+  return null;
 }
 
-/**
- * ユーザーテーマスタイルシートを削除
- */
 function removeUserThemeStyleSheet(): void {
   if (userThemeStyleSheet) {
     document.adoptedStyleSheets = document.adoptedStyleSheets.filter((sheet) => sheet !== userThemeStyleSheet);
@@ -193,11 +249,6 @@ function removeUserThemeStyleSheet(): void {
   }
 }
 
-/**
- * OSテーマの変更を監視して自動適用する
- * @param callback OSテーマ変更時のコールバック
- * @returns 監視を停止する関数
- */
 export function watchOSTheme(callback?: (isDark: boolean) => void): () => void {
   const mq = window.matchMedia('(prefers-color-scheme: dark)');
 
