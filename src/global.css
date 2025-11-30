@@ -204,6 +204,8 @@ div {
 button,
 p,
 a,
+blockquote,
+code,
 input,
 label,
 span,
@@ -215,8 +217,10 @@ textarea {
 
 p,
 a,
-label {
-  font-size: 0.5rem;
+label,
+blockquote,
+code {
+  font-size: 8px;
   letter-spacing: 1px;
   margin: 0;
 }
