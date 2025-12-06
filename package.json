@@ -8,7 +8,7 @@
     ".": "./index.ts"
   },
   "dependencies": {
-    "@sledge/anvil": "npm:@sledge-pdm/anvil@^1.0.4"
+    "@sledge/anvil": "npm:@sledge-pdm/anvil@^1.0.5"
   },
   "scripts": {
     "dev": "",
