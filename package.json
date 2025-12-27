@@ -1,14 +1,15 @@
 {
-  "name": "@sledge/theme",
+  "name": "@sledge-pdm/theme",
   "version": "0.0.0",
-  "private": true,
+  "private": false,
   "type": "module",
-  "sideEffects": false,
+  "sideEffects": true,
   "exports": {
     ".": "./index.ts"
   },
   "dependencies": {
-    "@sledge/anvil": "npm:@sledge-pdm/anvil@^1.0.6"
+    "@sledge/anvil": "npm:@sledge-pdm/anvil@^1.0.6",
+    "@sledge/core": "npm:@sledge-pdm/misc@^1.0.0"
   },
   "scripts": {
     "dev": "",
