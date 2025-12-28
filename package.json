@@ -9,7 +9,7 @@
     "./global.css": "./src/global.css"
   },
   "dependencies": {
-    "@sledge/anvil": "npm:@sledge-pdm/anvil@^1.0.6",
+    "@sledge/anvil": "npm:@sledge-pdm/anvil@^1.0.7",
     "@sledge/core": "npm:@sledge-pdm/misc@^1.0.0"
   },
   "scripts": {
